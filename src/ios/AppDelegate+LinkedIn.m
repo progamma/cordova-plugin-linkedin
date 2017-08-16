@@ -7,6 +7,10 @@
     if ([LISDKCallbackHandler shouldHandleUrl:url]) {
         return [LISDKCallbackHandler application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
     }
+    
+    // all plugins will get the notification, and their handlers will be called
+    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:CDVPluginHandleOpenURLNotification object:url]];
+    
     return YES;
 }
 
